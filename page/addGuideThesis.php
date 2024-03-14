@@ -1,3 +1,25 @@
+<?php
+
+use function component\ContactInformation;
+use function component\PersionalInformation;
+
+    require_once('../Utils/Log.php');
+    require_once('../service/FacultyService.php');
+    require_once('../service/AccountService.php');
+    require_once('../model/Account.php');
+    require_once('../Utils/constant.php');
+    require_once('../Utils/RequestUtils.php');
+    require_once('../component/personal-information.php');
+    require_once('../component/contact-information.php');
+    require_once('../model/Thesis_Subject.php');
+    
+    if(isset($_POST['add'])){
+        $resquestUtils=new utils\RequestUtils();
+        $thesisSubject=$resquestUtils->parse('entity\Thesis_Subject');
+        utils\Log::log($thesisSubject);
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +44,7 @@
         ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
-                <form class="row" action="/" method="post">
+                <form class="row" action="" method="post">
                     <div class="col-5">
                         <div class="card">
                             <div class="card-body">
@@ -35,47 +57,35 @@
                                     <div>
                                         <div class="form-group">
                                             <label>Adviser</label>
-                                            <h3 class="text-center">John Oliver</h3>
+                                            <h3 class="text-center">
+                                                <?php echo "$account->lastname $account->firstname ";?></h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title">Information</div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Date of Birth</label>
-                                        <input type="date" name="date_of_birth" id=""
-                                            class="input-default form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Gender</label>
-                                        <select name="gender" class="input-default form-control">
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Personal info -->
+                        <?php
+                            PersionalInformation($account->date_of_birth);
+                            ContactInformation($account->email,$account->phone)
+                        ?>
                     </div>
                     <div class="col-7">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">About thesis</div>
+                                <input name="instructor_id" type="hidden" value="<?php $account->id;?>">
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="class" name="title" id="" class="input-default form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Topic</label>
-                                    <input type="class" name="objective" id="" class="input-default form-control">
+                                    <input type="class" name="topic" class="input-default form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Objective</label>
-                                    <input type="class" name="email" id="" class="input-default form-control">
+                                    <input type="class" name="objective" id="" class="input-default form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Scope</label>
@@ -86,7 +96,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">Requirement</div>
-                                <textarea class="form-control" name="" id="required" cols="30" rows="5"></textarea>
+                                <textarea class="form-control" name="" id="requirement" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="card">
@@ -102,6 +112,8 @@
                         <div class="card">
                             <button class="btn btn-outline-danger w-100" name="cancel">Cancel</button>
                         </div>
+
+
                     </div>
 
             </div>

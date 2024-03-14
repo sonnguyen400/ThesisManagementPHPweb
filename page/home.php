@@ -1,3 +1,14 @@
+<?php
+
+use function component\PersionalInformation;
+
+    require_once('../service/FacultyService.php');
+    require_once('../service/AccountService.php');
+    require_once('../model/Account.php');
+    require_once('../Utils/constant.php');
+    require_once('../Utils/RequestUtils.php');
+    require_once('../component/personal-information.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,24 +46,12 @@
                                     <div class="text-lg font-weight-semi-bold text-center">
                                         Your name
                                     </div>
-                                    <ul class="list-group list-group-flush mt-4">
-                                        <h4>Personal Information</h4>
-                                        <li class="list-group-item">
-                                            <span class="pr-2 font-weight-semi-bold">Date of Birth</span>
-                                            <span class="text-secondary">16/03/2003</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="pr-2 font-weight-semi-bold">Social ID</span>
-                                            <span class="text-secondary ">hellohoangson@gmail.com</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="pr-2 font-weight-semi-bold">Gender</span>
-                                            <span class="text-secondary ">hellohoangson@gmail.com</span>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            PersionalInformation($account->date_of_birth)
+                        ?>
                     </div>
                     <div class="col-7">
                         <div class="card">

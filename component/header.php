@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    $account=$_SESSION[CURRENT_LOGIN_ACCOUNT];
+?>
 <div class="nav-header">
     <div class="brand-logo">
         <a href="index.html">
@@ -167,7 +171,8 @@
                         <div class="dropdown-content-body">
                             <ul>
                                 <li>
-                                    <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                    <a href="app-profile.html"><i class="icon-user"></i>
+                                        <span><?php echo "$account->lastname $account->firstname"?></span></a>
                                 </li>
                                 <li>
                                     <a href="email-inbox.html"><i class="icon-envelope-open"></i> <span>Inbox</span>

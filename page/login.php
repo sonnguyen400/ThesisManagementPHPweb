@@ -1,5 +1,9 @@
 <?php
-    use entity;
+use service\AccountService;
+    session_start();
+    require_once("../service/AccountService.php");
+    $accountService=new AccountService();
+    
 ?>
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -17,6 +21,17 @@
 </head>
 
 <body class="h-100">
+    <?php
+        if(isset($_POST['login'])){
+            $account=$accountService->authentication($_POST['username'],$_POST['password']);
+            if($account===false){
+                echo "<div class='alert alert-danger alert-dismissible fade show'>Username or password is invalid</div>";
+            }else{
+                $_SESSION[CURRENT_LOGIN_ACCOUNT]=$account;
+                echo "<div class='alert alert-success alert-dismissible fade show'>Login success</div>";
+            }
+        }
+    ?>
     <div class="login-form-bg h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
@@ -28,14 +43,15 @@
                                     <h4>Login</h4>
                                 </a>
 
-                                <form class="mt-5 mb-5 login-input">
+                                <form method="post" action="" class="mt-5 mb-5 login-input">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input name="username" type="test" class="form-control" placeholder="Username">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input name="password" type="password" class="form-control"
+                                            placeholder="Password">
                                     </div>
-                                    <button class="btn login-form__btn submit w-100">Sign In</button>
+                                    <button name="login" class="btn login-form__btn submit w-100">Sign In</button>
                                 </form>
                                 <p class="mt-5 login-form__footer">Dont have account? <a href="page-register.html"
                                         class="text-primary">Sign Up</a> now</p>
