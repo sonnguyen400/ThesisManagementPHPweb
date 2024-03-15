@@ -14777,4 +14777,60 @@ input[type="PIN"]:focus{
 .bg-green-700{
   background-color: green;
 }
+.tlc{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  background: linear-gradient(to right, #1d976c, #93f9b9);
+  padding: 3rem 0;
+}
+.tlc h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+.tlc .tl {
+  position: relative;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+}
+.tlc .tl .tl-item {
+  position: relative;
+  left: -10px;
+  list-style: none;
+  border-left: 1px solid #fff;
+  margin-left: 10px;
+  padding: 0 0 1.5rem 1.5rem;
+}
+.tlc .tl .tl-item .tl-card {
+  background: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.tlc .tl .tl-item .tl-card h4 {
+  margin: 10px auto;
+  color: #333;
+}
+.tlc .tl .tl-item .tl-card:hover {
+  box-shadow: 0 5px 5px rgba(23, 20, 29, 0.15);
+  transform: translateX(-5px);
+}
+.tlc .tl .tl-item:last-child {
+  padding-bottom: 0;
+}
+.tlc .tl .tl-item:before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background: white;
+  border: 2px solid #278472;
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+  top: 0px;
+}
 /*# sourceMappingURL=style.css.map */

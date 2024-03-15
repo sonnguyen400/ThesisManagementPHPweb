@@ -1,3 +1,15 @@
+<?php
+
+
+require_once('../Utils/Log.php');
+require_once('../service/AccountService.php');
+require_once('../model/Account.php');
+require_once('../Utils/constant.php');
+require_once('../Utils/RequestUtils.php');
+require_once('../model/Thesis_Subject.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

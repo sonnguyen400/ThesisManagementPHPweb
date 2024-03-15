@@ -1,5 +1,6 @@
 <?php
     namespace service;
+    require_once('../service/Service.php');
     require_once('../model/Thesis_Subject.php');
     require_once('../Utils/constant.php');
     class ThesisSubjectService extends Service {

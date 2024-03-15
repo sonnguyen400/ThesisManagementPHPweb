@@ -1,13 +1,15 @@
 <?php
 
+use function component\ContactInformation;
 use function component\PersionalInformation;
 
-    require_once('../service/FacultyService.php');
-    require_once('../service/AccountService.php');
-    require_once('../model/Account.php');
-    require_once('../Utils/constant.php');
-    require_once('../Utils/RequestUtils.php');
-    require_once('../component/personal-information.php');
+require_once('../service/FacultyService.php');
+require_once('../service/AccountService.php');
+require_once('../model/Account.php');
+require_once('../Utils/constant.php');
+require_once('../Utils/RequestUtils.php');
+require_once('../component/personal-information.php');
+require_once('../component/contact-information.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,11 +27,11 @@ use function component\PersionalInformation;
 </head>
 
 <body>
-    <?php include '../component/loader.php'?>
+    <?php include '../component/loader.php' ?>
     <div id="main-wrapper">
         <?php
-            include '../component/header.php';
-            include '../component/sidebar.php';
+        include '../component/header.php';
+        include '../component/sidebar.php';
         ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
@@ -50,25 +52,14 @@ use function component\PersionalInformation;
                             </div>
                         </div>
                         <?php
-                            PersionalInformation($account->date_of_birth)
+                        PersionalInformation($account->date_of_birth);
+
                         ?>
                     </div>
                     <div class="col-7">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>Contact</h4>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <span class="pr-2 font-weight-semi-bold">Email</span>
-                                        <span class="text-secondary ">hellohoangson@gmail.com</span>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="pr-2 font-weight-semi-bold">Phone</span>
-                                        <span class="text-secondary ">0393497961</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <?php
+                            ContactInformation($account->email, $account->phone);
+                        ?>
                     </div>
 
                 </div>
@@ -76,7 +67,7 @@ use function component\PersionalInformation;
         </div>
     </div>
     <?php
-        include '../component/base-script.php';
+    include '../component/base-script.php';
     ?>
 
 </body>

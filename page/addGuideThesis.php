@@ -1,24 +1,27 @@
 <?php
 
+use service\ThesisSubjectService;
+
 use function component\ContactInformation;
 use function component\PersionalInformation;
 
-    require_once('../Utils/Log.php');
-    require_once('../service/FacultyService.php');
-    require_once('../service/AccountService.php');
-    require_once('../model/Account.php');
-    require_once('../Utils/constant.php');
-    require_once('../Utils/RequestUtils.php');
-    require_once('../component/personal-information.php');
-    require_once('../component/contact-information.php');
-    require_once('../model/Thesis_Subject.php');
-    
-    if(isset($_POST['add'])){
-        $resquestUtils=new utils\RequestUtils();
-        $thesisSubject=$resquestUtils->parse('entity\Thesis_Subject');
-        utils\Log::log($thesisSubject);
-    }
-    
+require_once('../Utils/Log.php');
+require_once('../service/ThesisSubjectService.php');
+require_once('../service/AccountService.php');
+require_once('../model/Account.php');
+require_once('../Utils/constant.php');
+require_once('../Utils/RequestUtils.php');
+require_once('../component/personal-information.php');
+require_once('../component/contact-information.php');
+require_once('../model/Thesis_Subject.php');
+$importThesisSubject = false;
+if (isset($_POST['add'])) {
+    $resquestUtils = new utils\RequestUtils();
+    $thesisSubject = $resquestUtils->parse('entity\Thesis_Subject');
+    $thesisSubjectService = new service\ThesisSubjectService();
+    $importThesisSubject = $thesisSubjectService->insert($thesisSubject) !== false;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,15 +35,17 @@ use function component\PersionalInformation;
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
 
 </head>
 
 <body>
-    <?php include '../component/loader.php'?>
+    <?php include '../component/loader.php' ?>
     <div id="main-wrapper">
         <?php
-            include '../component/header.php';
-            include '../component/sidebar.php';
+        include '../component/header.php';
+        include '../component/sidebar.php';
         ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
@@ -58,7 +63,7 @@ use function component\PersionalInformation;
                                         <div class="form-group">
                                             <label>Adviser</label>
                                             <h3 class="text-center">
-                                                <?php echo "$account->lastname $account->firstname ";?></h3>
+                                                <?php echo "$account->lastname $account->firstname "; ?></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -66,15 +71,15 @@ use function component\PersionalInformation;
                         </div>
                         <!-- Personal info -->
                         <?php
-                            PersionalInformation($account->date_of_birth);
-                            ContactInformation($account->email,$account->phone)
+                        PersionalInformation($account->date_of_birth);
+                        ContactInformation($account->email, $account->phone)
                         ?>
                     </div>
                     <div class="col-7">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">About thesis</div>
-                                <input name="instructor_id" type="hidden" value="<?php $account->id;?>">
+                                <input name="instructor_id" type="hidden" value="<?php echo $account->id; ?>">
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="class" name="title" id="" class="input-default form-control">
@@ -96,7 +101,7 @@ use function component\PersionalInformation;
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">Requirement</div>
-                                <textarea class="form-control" name="" id="requirement" cols="30" rows="5"></textarea>
+                                <textarea class="form-control" name="requirement" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="card">
@@ -123,8 +128,23 @@ use function component\PersionalInformation;
     </div>
     </div>
     <?php
-        include '../component/base-script.php';
+    echo $importThesisSubject;
     ?>
+    <?php
+    include '../component/base-script.php';
+    ?>
+    <script src="../plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script>
+    $(function() {
+        <?php
+            if ($importThesisSubject===1) {
+                echo ` swal("Hey, Good job !!", "You clicked the button !!", "success");`;
+            }else{
+                echo `sweetAlert("Oops...", "Hehe went wrong !!", "error");`;
+            }
+            ?>
+    })
+    </script>
 
 </body>
 
